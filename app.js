@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 //路由中间件
 const path = require('path')
@@ -7,7 +8,10 @@ const userRouter = require('./rout/userRouter');
 const bannerRouter = require('./rout/bannerRouter');
 //静态资源托管;如不设置页面会乱码
 app.use(express.static(path.resolve(__dirname, './public')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
+app.use(cookieParser());
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/banner', bannerRouter);
@@ -15,4 +19,4 @@ app.use('/banner', bannerRouter);
 app.set('views', path.resolve(__dirname, './views'));
 app.set('view engine', 'ejs');
 
-app.listen(8080);
+app.listen(8888);
